@@ -13,7 +13,6 @@ import com.proyecto.inventario.events.Event;
 import com.proyecto.inventario.events.PedidoCreatedEvent;
 import com.proyecto.inventario.mapper.ItemMapper;
 import com.proyecto.inventario.model.ArticuloEntity;
-import com.proyecto.inventario.model.PedidoEntity;
 //import com.proyecto.inventario.repository.ItemRepository;
 //import com.proyecto.inventario.repository.PedidoRepository;
 @Service

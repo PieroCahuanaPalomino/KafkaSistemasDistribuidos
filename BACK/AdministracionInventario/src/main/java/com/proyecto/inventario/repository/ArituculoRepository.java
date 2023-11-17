@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.proyecto.inventario.model.ArticuloEntity;
 
 @Repository
-public interface ItemRepository extends JpaRepository<ArticuloEntity,Long>{
+public interface ArituculoRepository extends JpaRepository<ArticuloEntity,Long>{
 
 }

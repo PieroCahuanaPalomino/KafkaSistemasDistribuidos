@@ -72,19 +72,21 @@ public class KafkaConsumerService {
                         cantidadDisponible = articuloEntity.getCantidadDisponible();
                         if (cantidadDisponible >= cantidadPedido) {
                             logger.info("SI HAY SUFICIENTE CANTIDAD");
-                            estadoKafka=estados[1];
+                            estadoKafka=estados[0];
                             // Aquí puedes realizar la lógica de la venta
                             
                         } else {
                             logger.info("NO HAY SUFICIENTE CANTIDAD");
                             estadoKafka=estados[2];
-
+                            break;
                             // Puedes manejar la lógica cuando no hay suficiente cantidad disponible
                             // por ejemplo, puedes marcar el artículo como no disponible para la venta
                         }
                     }
                 }
                 customerService.save(pedidoDto,estadoKafka);
+            	logger.info("{}", estadoKafka);
+
             }
             
 

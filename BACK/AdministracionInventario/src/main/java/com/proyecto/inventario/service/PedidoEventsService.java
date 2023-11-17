@@ -22,18 +22,30 @@ public class PedidoEventsService {
 		@Autowired
 		private KafkaTemplate<String, Event<?>> producer;
 		
-		@Value("${topic.customer.name:customers_reserva}")
+		@Value("${topic.customer.name:customers_reservation}")
 		private String topicCustomer;
+		
+		@Value("${topic.customer.name:customers_error}")
+		private String topicCustomerError;
 		
 		public void publish(PedidoDto customer,String estadoKafka) {
 
 			PedidoCreatedEvent created = new PedidoCreatedEvent();
 			created.setData(customer);
 			created.setId(UUID.randomUUID().toString());
-			created.setType(EventType.ENVIADO);
 			created.setDate(new Date());
 
-			this.producer.send(topicCustomer, created);
+			if(estadoKafka.equals(EventType.ENVIADO.toString())) {
+				created.setType(EventType.ENVIADO);
+				this.producer.send(topicCustomer, created);
+			}else if(estadoKafka.equals(EventType.INEXISTENTE.toString())){
+				created.setType(EventType.INEXISTENTE);
+				this.producer.send(topicCustomerError, created);
+			}else if(estadoKafka.equals(EventType.INSUFICIENTE.toString())) {
+				created.setType(EventType.INSUFICIENTE);
+				this.producer.send(topicCustomerError, created);
+			}
+
 		}
 
 	

@@ -1,6 +1,6 @@
 package com.proyecto.inventario.events;
 
 public enum EventType {
-	ENVIADO,ERROR
+	ENVIADO,INEXISTENTE,INSUFICIENTE
 }
 

@@ -1,5 +1,8 @@
 .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
 
+dataDir=c:/kafka/zookeeper-data
+log.dirs=c:/kafka/kafka-logs
+
 
 .\bin\windows\kafka-server-start.bat .\config\server.properties
 

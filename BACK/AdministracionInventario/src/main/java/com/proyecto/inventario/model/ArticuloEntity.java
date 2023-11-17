@@ -22,7 +22,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity(name="items")
 @Table(name = "item")
-public class ItemEntity {
+public class ArticuloEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

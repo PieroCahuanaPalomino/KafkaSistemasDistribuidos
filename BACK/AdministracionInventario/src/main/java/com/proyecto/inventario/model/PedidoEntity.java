@@ -29,6 +29,6 @@ public class PedidoEntity {
 	// Otras propiedades de Pedido
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ItemEntity> items;
+	private List<ArticuloEntity> items;
 }
 

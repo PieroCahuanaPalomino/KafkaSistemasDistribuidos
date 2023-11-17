@@ -6,21 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import com.proyecto.inventario.dto.ItemDto;
-import com.proyecto.inventario.model.ItemEntity;
+import com.proyecto.inventario.dto.ArticuloDto;
+import com.proyecto.inventario.model.ArticuloEntity;
 @Component
 public class ItemMapper {
     @Autowired
     private ModelMapper modelMapper;
 
-    public ItemDto mapearDTO(ItemEntity entity) {
-    	ItemDto itemDto=modelMapper.map(entity, ItemDto.class);
+    public ArticuloDto mapearDTO(ArticuloEntity entity) {
+    	ArticuloDto itemDto=modelMapper.map(entity, ArticuloDto.class);
     	return itemDto;
     }
     
     
-    public ItemEntity mapearEntity(ItemDto dto) {
-    	ItemEntity itemEntity=modelMapper.map(dto, ItemEntity.class);
+    public ArticuloEntity mapearEntity(ArticuloDto dto) {
+    	ArticuloEntity itemEntity=modelMapper.map(dto, ArticuloEntity.class);
     	return itemEntity;
     }
 }

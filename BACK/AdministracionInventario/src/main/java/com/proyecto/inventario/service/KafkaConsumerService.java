@@ -8,12 +8,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.proyecto.inventario.dto.ItemDto;
 import com.proyecto.inventario.dto.PedidoDto;
 import com.proyecto.inventario.events.Event;
 import com.proyecto.inventario.events.PedidoCreatedEvent;
 import com.proyecto.inventario.mapper.ItemMapper;
-import com.proyecto.inventario.model.ItemEntity;
+import com.proyecto.inventario.model.ArticuloEntity;
 import com.proyecto.inventario.model.PedidoEntity;
 //import com.proyecto.inventario.repository.ItemRepository;
 //import com.proyecto.inventario.repository.PedidoRepository;

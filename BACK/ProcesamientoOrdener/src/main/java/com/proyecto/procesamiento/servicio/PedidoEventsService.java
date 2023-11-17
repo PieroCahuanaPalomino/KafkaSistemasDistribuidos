@@ -28,7 +28,7 @@ public class PedidoEventsService {
 		PedidoCreatedEvent created = new PedidoCreatedEvent();
 		created.setData(customer);
 		created.setId(UUID.randomUUID().toString());
-		created.setType(EventType.CREATED);
+		created.setType(EventType.ENVIADO);
 		created.setDate(new Date());
 
 		this.producer.send(topicCustomer, created);

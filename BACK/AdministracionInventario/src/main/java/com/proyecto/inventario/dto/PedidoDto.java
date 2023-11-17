@@ -10,6 +10,6 @@ import lombok.Setter;
 
 @Data
 public class PedidoDto {
-    List<ItemDto> itemsDto;
+	List<ArticuloDto> listaArticulos;
 }
 

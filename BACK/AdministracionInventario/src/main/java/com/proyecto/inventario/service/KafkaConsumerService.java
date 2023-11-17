@@ -30,39 +30,38 @@ public class KafkaConsumerService {
 
     @KafkaListener(topics = "customers", groupId = "grupo1")
     public void consumeMessage(String message) {
-        String codigoBuscar;
         try {
-            PedidoCreatedEvent messageObject = objectMapper.readValue(message, PedidoCreatedEvent.class);
+            String codigoBuscar;
+            int cantidadPedido,cantidadDisponible;
+            
+        	PedidoCreatedEvent messageObject = objectMapper.readValue(message, PedidoCreatedEvent.class);
             PedidoDto pedidoDto = messageObject.getData();
             logger.info("Mensaje DTO: {}", pedidoDto);
+            logger.info("LIST DTO: {}", pedidoDto.getListaArticulos());
 
-            Long miVariableLong = 1L;
-
-            ArticuloEntity articuloEntity = articuloRepository.findById(1).get();
-        	logger.info("entity: {}", articuloEntity);
-            
-            ArticuloEntity articuloEntity2 = articuloRepository.findByCodigoArticulo("A325OP");
-        	logger.info("entity: {}", articuloEntity2);
            
-            /*
-            if (pedidoDto != null) {
-                logger.info("Mensaje deserializado: {}", messageObject);
-                logger.info("Mensaje DTO: {}", pedidoDto);
+            
+            ArticuloEntity articuloEntity = new ArticuloEntity();
 
+        	logger.info("-------------------------");
+
+        	if(pedidoDto != null){
                 for (int i = 0; i < pedidoDto.getListaArticulos().size(); i++) {
-                    codigoBuscar = pedidoDto.getListaArticulos().get(i).getCodigo();
-                    ArticuloEntity articuloEntity = articuloRepository.findByCodigoArticulo(codigoBuscar);
-
+                    codigoBuscar = pedidoDto.getListaArticulos().get(i).getCodigoArticulo();
+                	articuloEntity = articuloRepository.findByCodigoArticulo(codigoBuscar);
+                	logger.info("FOR");
+                	logger.info("entity: {}", articuloEntity);
+                	logger.info("codigo: {}", codigoBuscar);
                     if (articuloEntity == null) {
-                        logger.info("NO HAY {}", codigoBuscar);
-                    } else {
+                        logger.info("NO HAY {}", codigoBuscar);                    	
+                    }else {
                         logger.info("SI HAY {}", codigoBuscar);
-                        int cantidadPedido = pedidoDto.getListaArticulos().get(i).getCantidadPedido();
-                        int cantidadDisponible = articuloEntity.getCantidadDisponible();
-
+                        cantidadPedido = pedidoDto.getListaArticulos().get(i).getCantidadPedido();
+                        cantidadDisponible = articuloEntity.getCantidadDisponible();
                         if (cantidadDisponible >= cantidadPedido) {
                             logger.info("SI HAY SUFICIENTE CANTIDAD");
                             // Aquí puedes realizar la lógica de la venta
+                            
                         } else {
                             logger.info("NO HAY SUFICIENTE CANTIDAD");
                             // Puedes manejar la lógica cuando no hay suficiente cantidad disponible
@@ -70,7 +69,8 @@ public class KafkaConsumerService {
                         }
                     }
                 }
-            }*/
+            }
+            
 
         } catch (Exception e) {
             logger.error("Error al deserializar el mensaje: {}", e.getMessage(), e);

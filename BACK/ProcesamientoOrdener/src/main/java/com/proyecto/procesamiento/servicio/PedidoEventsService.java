@@ -33,7 +33,5 @@ public class PedidoEventsService {
 
 		this.producer.send(topicCustomer, created);
 	}
-	
-	
 
 }

@@ -10,8 +10,8 @@ import lombok.Setter;
 
 @Data
 public class ArticuloDto {
-	String codigo;
-	String nombre;
-	BigDecimal precio;
-	int  cantidaPedida;
+	String codigoArticulo;
+	String nombreArticulo;
+	BigDecimal precioUnitario;
+	int  cantidadPedido;
 }

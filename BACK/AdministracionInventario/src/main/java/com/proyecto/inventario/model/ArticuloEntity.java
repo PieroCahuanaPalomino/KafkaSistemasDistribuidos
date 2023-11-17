@@ -20,28 +20,28 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="Arituculo")
-@Table(name = "ariticulo")
+@Entity(name="Articulo")
+@Table(name = "articulo")
 public class ArticuloEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_articulo")
-    private Long id;
+    private Integer id;
 
     // Otras propiedades de Item
-    @Column(name = "codigoArticulo")
-    private String codigo;
+    @Column(name = "codigo_articulo")
+    private String codigoArticulo;
     
-    @Column(name = "nombreArticulo")
-    private String nombre;
+    @Column(name = "nombre_articulo")
+    private String nombreArticulo;
     
-    @Column(name = "precioUnitario")
-    private BigDecimal precio;
+    @Column(name = "precio_unitario")
+    private BigDecimal precioUnitario;
     
-    @Column(name = "cantidadDisponible")
+    @Column(name = "cantidad_disponible")
     private int cantidadDisponible;
     
-
+    
 }
 
 

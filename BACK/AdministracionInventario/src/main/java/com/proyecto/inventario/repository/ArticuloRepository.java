@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.proyecto.inventario.model.ArticuloEntity;
 
 @Repository
-public interface ArituculoRepository extends JpaRepository<ArticuloEntity,Long>{
+public interface ArticuloRepository extends JpaRepository<ArticuloEntity, Integer> {
+    ArticuloEntity findByCodigoArticulo(String codigoArticulo);
 
 }

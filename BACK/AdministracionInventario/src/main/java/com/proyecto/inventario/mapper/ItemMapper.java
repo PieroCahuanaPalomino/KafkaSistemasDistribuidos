@@ -2,6 +2,8 @@ package com.proyecto.inventario.mapper;
 
 
 import org.modelmapper.ModelMapper;
+
+/*
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -23,4 +25,4 @@ public class ItemMapper {
     	ArticuloEntity itemEntity=modelMapper.map(dto, ArticuloEntity.class);
     	return itemEntity;
     }
-}
+}*/

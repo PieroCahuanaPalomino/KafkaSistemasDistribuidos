@@ -14,7 +14,7 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import com.proyecto.inventario.events.Event;
 
-/*
+
 @Configuration
 public class KafkaProducerConfig {
 	
@@ -39,4 +39,4 @@ public class KafkaProducerConfig {
     public KafkaTemplate<String, Event<?>> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
-}*/
+}

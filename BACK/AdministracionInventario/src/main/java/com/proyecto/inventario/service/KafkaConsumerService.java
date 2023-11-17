@@ -21,6 +21,15 @@ import com.proyecto.inventario.repository.ArticuloRepository;
 //import com.proyecto.inventario.repository.PedidoRepository;
 @Service
 public class KafkaConsumerService {
+	
+	private final PedidoService customerService;
+
+	public KafkaConsumerService(PedidoService customerService) {
+		super();
+		this.customerService = customerService;
+	}
+	
+	
     @Autowired
     private ArticuloRepository articuloRepository;
 
@@ -33,7 +42,8 @@ public class KafkaConsumerService {
         try {
             String codigoBuscar;
             int cantidadPedido,cantidadDisponible;
-            
+            String[] estados = {"ENVIADO","INEXISTENTE","INSUFICIENTE"};
+            String estadoKafka="";
         	PedidoCreatedEvent messageObject = objectMapper.readValue(message, PedidoCreatedEvent.class);
             PedidoDto pedidoDto = messageObject.getData();
             logger.info("Mensaje DTO: {}", pedidoDto);
@@ -53,22 +63,28 @@ public class KafkaConsumerService {
                 	logger.info("entity: {}", articuloEntity);
                 	logger.info("codigo: {}", codigoBuscar);
                     if (articuloEntity == null) {
-                        logger.info("NO HAY {}", codigoBuscar);                    	
+                        logger.info("NO HAY {}", codigoBuscar);   
+                        estadoKafka=estados[1];
+                        break;
                     }else {
                         logger.info("SI HAY {}", codigoBuscar);
                         cantidadPedido = pedidoDto.getListaArticulos().get(i).getCantidadPedido();
                         cantidadDisponible = articuloEntity.getCantidadDisponible();
                         if (cantidadDisponible >= cantidadPedido) {
                             logger.info("SI HAY SUFICIENTE CANTIDAD");
+                            estadoKafka=estados[1];
                             // Aquí puedes realizar la lógica de la venta
                             
                         } else {
                             logger.info("NO HAY SUFICIENTE CANTIDAD");
+                            estadoKafka=estados[2];
+
                             // Puedes manejar la lógica cuando no hay suficiente cantidad disponible
                             // por ejemplo, puedes marcar el artículo como no disponible para la venta
                         }
                     }
                 }
+                customerService.save(pedidoDto,estadoKafka);
             }
             
 

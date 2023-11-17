@@ -25,7 +25,7 @@ public class PedidoEventsService {
 		@Value("${topic.customer.name:customers_reserva}")
 		private String topicCustomer;
 		
-		public void publish(PedidoDto customer) {
+		public void publish(PedidoDto customer,String estadoKafka) {
 
 			PedidoCreatedEvent created = new PedidoCreatedEvent();
 			created.setData(customer);

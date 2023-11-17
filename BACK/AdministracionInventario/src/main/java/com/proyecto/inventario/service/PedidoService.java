@@ -15,9 +15,9 @@ public class PedidoService {
 		this.customerEventsService = customerEventsService;
 	}
 
-	public PedidoDto save(PedidoDto customer) {
+	public PedidoDto save(PedidoDto customer,String estadoKafka) {
 		System.out.println("Received " + customer);
-		this.customerEventsService.publish(customer);
+		this.customerEventsService.publish(customer,estadoKafka);
 		return customer;
 		
 	}

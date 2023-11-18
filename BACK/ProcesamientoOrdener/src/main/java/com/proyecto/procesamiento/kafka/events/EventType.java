@@ -5,3 +5,5 @@ public enum EventType {
 	ENVIADO,INEXISTENTE,INSUFICIENTE
 }
 
+
+

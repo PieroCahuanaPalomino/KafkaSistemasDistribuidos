@@ -21,7 +21,7 @@ public class CustomerController {
 	}
 	
 	@PostMapping
-	public PedidoDto save(@RequestBody PedidoDto customer) {
+	public <T>T save(@RequestBody PedidoDto customer) {
 		return this.customerService.save(customer);
 	}
 	

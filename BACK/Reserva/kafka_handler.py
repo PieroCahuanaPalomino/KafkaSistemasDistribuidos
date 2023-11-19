@@ -39,7 +39,7 @@ def update_inventory_and_send_message(codigo_articulo, cantidad_pedido, producer
         return articulo_db
             
 
-def send_kafka_message(articulo_db_list, cantidad_pedido, producer):
+def send_kafka_message(comprador_data,articulo_db_list, cantidad_pedido, producer):
     try:
         # Construir el mensaje para enviar a Kafka
         kafka_message = {
@@ -47,7 +47,8 @@ def send_kafka_message(articulo_db_list, cantidad_pedido, producer):
             "date": datetime.utcnow().timestamp() * 1000,
             "type": "LISTO_FACTURA",
             "data": {
-                "listaArticulos": []
+                "listaArticulos": [],
+                "comprador": {}
             }
         }
         ordered_articulos_dict = OrderedDict()
@@ -62,6 +63,15 @@ def send_kafka_message(articulo_db_list, cantidad_pedido, producer):
             ordered_articulos_dict[articulo_db.codigo_articulo] = articulo_dict
         # Agregar los artículos al mensaje en el orden original
         kafka_message["data"]["listaArticulos"] = list(ordered_articulos_dict.values())
+        
+        # Agregar la información del comprador al mensaje
+        # Agregar la información del comprador al mensaje
+        kafka_message["data"]["comprador"] = {
+            "nombre": comprador_data.get("nombre", ""),
+            "dni": comprador_data.get("dni", ""),
+            "ordenCompra": comprador_data.get("ordenCompra", "")
+        }
+
         # Convertir el mensaje a formato JSON
         kafka_message_json = json.dumps(kafka_message)
 
@@ -112,14 +122,16 @@ def kafka_consumer():
                 type=mensaje_kafka_dict['type'],
                 data=mensaje_kafka_dict['data']
                 )
-                #print(mensaje_kafka_obj)
+
+                comprador_data = mensaje_kafka_obj.data.get('comprador', {})
+                print("Datos kafka con comprador" + str(mensaje_kafka_obj))
                 print("CARGANDOM1")
                 #Procesar la lista de artículos
                 for articulo_pedido in mensaje_kafka_obj.data.get('listaArticulos', []):
                     codigo_articulo_pedido = articulo_pedido.get('codigoArticulo')
                     cantidad_pedido = articulo_pedido.get('cantidadPedido')
                     articulo_db_list.append(update_inventory_and_send_message(codigo_articulo_pedido, cantidad_pedido, producer))
-                send_kafka_message(articulo_db_list, cantidad_pedido, producer)
+                send_kafka_message(comprador_data,articulo_db_list, cantidad_pedido, producer)
                 continue
     except KeyboardInterrupt:
         pass

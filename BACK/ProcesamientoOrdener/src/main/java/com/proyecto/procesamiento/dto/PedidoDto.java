@@ -11,4 +11,5 @@ import lombok.Setter;
 @Data
 public class PedidoDto {
 	List<ArticuloDto> listaArticulos;
+	CompradorDto comprador;
 }

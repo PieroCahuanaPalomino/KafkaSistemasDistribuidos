@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.procesamiento.dto.CompradorDto;
 import com.proyecto.procesamiento.dto.PedidoDto;
 import com.proyecto.procesamiento.servicio.PedidoService;
 

@@ -28,9 +28,9 @@ public class PedidoService {
 		String mensajeAsignacion;
 		
 		System.out.println("Received " + customer);
-		this.customerEventsService.publish(customer);
+		this.customerEventsService.publish(customer);		
 		do {
-			System.out.println("CARGANDO... ");			
+			//System.out.println("CARGANDO... ");			
 		}while(consumerService.mensaje==null);
 		
 		mensajeAsignacion=consumerService.mensaje;
@@ -45,7 +45,7 @@ public class PedidoService {
 			consumerService.mensaje=null;
 			return (T) dto;
 		}
-		
+		//verificar sino poner dbajo de Received
 		//aqui trabajar cuando sea bueno
 		return (T) customer;
 

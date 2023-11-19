@@ -1,4 +1,5 @@
 # kafka_handler.py
+from collections import OrderedDict
 from decimal import Decimal
 from confluent_kafka import Consumer, KafkaError , Producer
 import json
@@ -26,7 +27,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 def update_inventory_and_send_message(codigo_articulo, cantidad_pedido, producer):
-    try:
+
         articulo_db = session.query(Articulo).filter_by(codigo_articulo=codigo_articulo).first()
 
         if articulo_db:
@@ -34,29 +35,33 @@ def update_inventory_and_send_message(codigo_articulo, cantidad_pedido, producer
             articulo_db.cantidad_disponible -= cantidad_pedido
             session.commit()
             print(f"Se actualizó el inventario para {codigo_articulo}. Cantidad disponible: {articulo_db.cantidad_disponible}")
+            articulo_db
+        return articulo_db
+            
 
-            # Enviar mensaje a Kafka después de actualizar la base de datos
-            send_kafka_message(articulo_db, cantidad_pedido, producer)
-    except Exception as e:
-        print(f"Error al actualizar el inventario: {e}")
-
-def send_kafka_message(articulo_db, cantidad_pedido, producer):
+def send_kafka_message(articulo_db_list, cantidad_pedido, producer):
     try:
         # Construir el mensaje para enviar a Kafka
         kafka_message = {
             "id": str(uuid.uuid4()),
-            "date": datetime.utcnow().timestamp() * 1000,  # Convertir la fecha actual a milisegundos
+            "date": datetime.utcnow().timestamp() * 1000,
             "type": "LISTO_FACTURA",
             "data": {
-                "listaArticulos": [{
-                    "codigoArticulo": articulo_db.codigo_articulo,
-                    "nombreArticulo": articulo_db.nombre_articulo,
-                    "precioUnitario": articulo_db.precio_unitario,
-                    "cantidadPedido": cantidad_pedido
-                }]
+                "listaArticulos": []
             }
         }
-
+        ordered_articulos_dict = OrderedDict()
+        
+        for articulo_db in articulo_db_list:
+            articulo_dict = {
+                "codigoArticulo": articulo_db.codigo_articulo,
+                "nombreArticulo": articulo_db.nombre_articulo,
+                "precioUnitario": articulo_db.precio_unitario,
+                "cantidadPedido": cantidad_pedido
+            }
+            ordered_articulos_dict[articulo_db.codigo_articulo] = articulo_dict
+        # Agregar los artículos al mensaje en el orden original
+        kafka_message["data"]["listaArticulos"] = list(ordered_articulos_dict.values())
         # Convertir el mensaje a formato JSON
         kafka_message_json = json.dumps(kafka_message)
 
@@ -86,7 +91,9 @@ def kafka_consumer():
     consumer.subscribe(['customers_reservation'])
 
     try:
-        while True:
+        while True: 
+            articulo_db_list = []
+
             msg = consumer.poll(1.0)
 
             if msg is None:
@@ -111,7 +118,8 @@ def kafka_consumer():
                 for articulo_pedido in mensaje_kafka_obj.data.get('listaArticulos', []):
                     codigo_articulo_pedido = articulo_pedido.get('codigoArticulo')
                     cantidad_pedido = articulo_pedido.get('cantidadPedido')
-                    update_inventory_and_send_message(codigo_articulo_pedido, cantidad_pedido, producer)
+                    articulo_db_list.append(update_inventory_and_send_message(codigo_articulo_pedido, cantidad_pedido, producer))
+                send_kafka_message(articulo_db_list, cantidad_pedido, producer)
                 continue
     except KeyboardInterrupt:
         pass

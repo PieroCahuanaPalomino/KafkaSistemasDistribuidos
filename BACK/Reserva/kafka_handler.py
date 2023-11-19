@@ -68,7 +68,7 @@ def send_kafka_message(comprador_data,articulo_db_list, cantidad_pedido, produce
         # Agregar la información del comprador al mensaje
         kafka_message["data"]["comprador"] = {
             "nombre": comprador_data.get("nombre", ""),
-            "dni": comprador_data.get("dni", ""),
+            "dniRuc": comprador_data.get("dniRuc", ""),
             "ordenCompra": comprador_data.get("ordenCompra", "")
         }
 

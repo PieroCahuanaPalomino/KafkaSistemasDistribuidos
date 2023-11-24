@@ -11,12 +11,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.procesamiento.dto.ErrorDto;
 import com.proyecto.procesamiento.dto.PedidoDto;
 import com.proyecto.procesamiento.kafka.events.PedidoCreatedEvent;
+import com.proyecto.procesamiento.kafka.events.RegistroCreatedEvent;
+
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class KafkaConsumerService {
 	String mensaje;
+	
+	String mensajeExito;
 	
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -33,5 +37,18 @@ public class KafkaConsumerService {
             System.err.println("Error al deserializar el mensaje: " + e.getMessage());
         }
     }
+    
+    @KafkaListener(topics = "customers_register", groupId = "grupo1")
+    public void consumeMessageExito(String message) {
+        try {
+        	RegistroCreatedEvent messageObject = objectMapper.readValue(message, RegistroCreatedEvent.class);
+            var mensaje = messageObject;
+            System.out.println("Mensaje deserializado: " + messageObject);
+            System.out.println("Mensaje deserializado: " + messageObject.getData());
+            mensajeExito=messageObject.getData();
+        } catch (Exception e) {
+            System.err.println("Error al deserializar el mensaje: " + e.getMessage());
+        }
+    }	
 }
 

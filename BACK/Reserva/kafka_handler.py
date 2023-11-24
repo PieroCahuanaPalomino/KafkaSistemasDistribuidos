@@ -15,7 +15,7 @@ Base = declarative_base()
 
 class Articulo(Base):
     __tablename__ = 'articulo'
-    ID_articulo = Column(Integer, primary_key=True)
+    id_articulo = Column(Integer, primary_key=True)
     codigo_articulo = Column(String)
     nombre_articulo = Column(String)
     precio_unitario = Column(Float)
@@ -41,10 +41,10 @@ def update_inventory_and_send_message(codigo_articulo, cantidad_pedido, producer
 
 def send_kafka_message(comprador_data,articulo_db_list, cantidad_pedido, producer):
     try:
-        # Construir el mensaje para enviar a Kafka
+        # Construir el mensaje para enviar a Kafka - DARLE A date por aparametro
         kafka_message = {
             "id": str(uuid.uuid4()),
-            "date": datetime.utcnow().timestamp() * 1000,
+            "date": int(datetime.utcnow().timestamp() * 1000),
             "type": "LISTO_FACTURA",
             "data": {
                 "listaArticulos": [],
@@ -54,7 +54,10 @@ def send_kafka_message(comprador_data,articulo_db_list, cantidad_pedido, produce
         ordered_articulos_dict = OrderedDict()
         
         for articulo_db in articulo_db_list:
+            # Obtén el id_articulo de la base de datos
+            id_articulo = articulo_db.id_articulo
             articulo_dict = {
+                "idArticulo": id_articulo,  # Agrega el campo idArticulo
                 "codigoArticulo": articulo_db.codigo_articulo,
                 "nombreArticulo": articulo_db.nombre_articulo,
                 "precioUnitario": articulo_db.precio_unitario,
@@ -123,6 +126,7 @@ def kafka_consumer():
                 data=mensaje_kafka_dict['data']
                 )
 
+                #date_data = mensaje_kafka_obj.date.get('date',{})
                 comprador_data = mensaje_kafka_obj.data.get('comprador', {})
                 print("Datos kafka con comprador" + str(mensaje_kafka_obj))
                 print("CARGANDOM1")

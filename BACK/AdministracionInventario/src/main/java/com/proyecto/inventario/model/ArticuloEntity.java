@@ -25,8 +25,8 @@ import lombok.Setter;
 public class ArticuloEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_articulo")
-    private Integer id;
+    @Column(name = "id_articulo")
+    private int id;
 
     // Otras propiedades de Item
     @Column(name = "codigo_articulo")

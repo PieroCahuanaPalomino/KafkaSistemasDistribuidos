@@ -29,25 +29,37 @@ public class PedidoService {
 		
 		System.out.println("Received " + customer);
 		this.customerEventsService.publish(customer);		
+		
 		do {
-			//System.out.println("CARGANDO... ");			
-		}while(consumerService.mensaje==null);
+			if(consumerService.mensaje!=null) {
+				mensajeAsignacion=consumerService.mensaje;
+				break;
+			}
+			mensajeAsignacion=consumerService.mensajeExito;
+		}while(consumerService.mensajeExito==null);
 		
-		mensajeAsignacion=consumerService.mensaje;
-		
-		if(mensajeAsignacion.equals("INEXISTENTE")) {
-			dto.setType(EventTypeError.INEXISTENTE);	
-			consumerService.mensaje=null;
-			return (T) dto;
+		if(consumerService.mensaje != null) {
+			
+			if(mensajeAsignacion.equals("INEXISTENTE")) {
+				dto.setType(EventTypeError.INEXISTENTE);	
+				consumerService.mensaje=null;
+				return (T) dto;
 
-		}else if (mensajeAsignacion.equals("INSUFICIENTE")) {
-			dto.setType(EventTypeError.INSUFICIENTE);						
-			consumerService.mensaje=null;
-			return (T) dto;
+			}else if (mensajeAsignacion.equals("INSUFICIENTE")) {
+				dto.setType(EventTypeError.INSUFICIENTE);						
+				consumerService.mensaje=null;
+				return (T) dto;
+			}else {
+				return (T) "ERROR";				
+			}
+			//verificar sino poner dbajo de Received
+			//aqui trabajar cuando sea bueno
+		}else if(consumerService.mensajeExito !=null && mensajeAsignacion.equals("EXITO")){
+				return (T) customer;				
+		}else {
+			return (T) "ERROR";
 		}
-		//verificar sino poner dbajo de Received
-		//aqui trabajar cuando sea bueno
-		return (T) customer;
+		
 
 	}
 	

@@ -21,6 +21,9 @@ docker run -d --name mysql-container \
 .\bin\windows\kafka-server-start.bat .\config\server.properties
 
 
+pip install flask-cors
+
+
 D:\CICLO 8\ProyectoKafka_ProcesarOrdenes\ProyectoKafka>pip install -r requirements.txt
 D:\CICLO 8\ProyectoKafka_ProcesarOrdenes\ProyectoKafka>python -m venv env
 D:\CICLO 8\ProyectoKafka_ProcesarOrdenes\ProyectoKafka>.\env\Scripts\activate

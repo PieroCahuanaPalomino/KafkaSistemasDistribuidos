@@ -30,21 +30,21 @@ public class PedidoEventsService {
 		
 		public void publish(PedidoDto customer,String estadoKafka) {
 
-		    PedidoCreatedEvent created = new PedidoCreatedEvent();
-		    created.setData(customer);
-		    created.setId(UUID.randomUUID().toString());
-		    created.setDate(new Date());
+			PedidoCreatedEvent created = new PedidoCreatedEvent();
+			created.setData(customer);
+			created.setId(UUID.randomUUID().toString());
+			created.setDate(new Date());
 
-		    if (estadoKafka.equals(EventType.ENVIADO.toString())) {
-		        created.setType(EventType.ENVIADO);
-		        this.producer.send(topicCustomer, created);
-		    } else if (estadoKafka.equals(EventType.INEXISTENTE.toString())) {
-		        created.setType(EventType.INEXISTENTE);
-		        this.producer.send(topicCustomerError, created);
-		    } else if (estadoKafka.equals(EventType.INSUFICIENTE.toString())) {
-		        created.setType(EventType.INSUFICIENTE);
-		        this.producer.send(topicCustomerError, created);
-		    }
+			if(estadoKafka.equals(EventType.ENVIADO.toString())) {
+				created.setType(EventType.ENVIADO);
+				this.producer.send(topicCustomer, created);
+			}else if(estadoKafka.equals(EventType.INEXISTENTE.toString())){
+				created.setType(EventType.INEXISTENTE);
+				this.producer.send(topicCustomerError, created);
+			}else if(estadoKafka.equals(EventType.INSUFICIENTE.toString())) {
+				created.setType(EventType.INSUFICIENTE);
+				this.producer.send(topicCustomerError, created);
+			}
 
 		}
 

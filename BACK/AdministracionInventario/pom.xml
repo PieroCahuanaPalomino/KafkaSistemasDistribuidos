@@ -15,9 +15,15 @@
 	<name>AdministracionInventario</name>
 	<description>Aplicacion para la administracion de inventario</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.22</version> <!-- Verifica la última versión en el repositorio Maven -->
+    <scope>provided</scope>
+</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -33,6 +39,7 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.22</version>
 			<scope>provided</scope>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -100,6 +107,15 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<image>
+						<builder>paketobuildpacks/builder-jammy-base:latest</builder>
+					</image>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -119,7 +135,17 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+			<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version> <!-- Puedes ajustar la versión según sea necesario -->
+            <configuration>
+                <source>19</source> <!-- Ajusta esto según la versión de Java que tengas instalada -->
+                <target>19</target> <!-- Ajusta esto según la versión de Java que tengas instalada -->
+            </configuration>
+        </plugin>
 		</plugins>
 	</build>
+	
 
 </project>

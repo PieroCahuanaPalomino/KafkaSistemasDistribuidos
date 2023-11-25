@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Icons-->
+    <script src="https://kit.fontawesome.com/414c30f412.js" crossorigin="anonymous"></script>
+    <title>Articulos</title>
+    <link rel="icon" type="image/png" href="../static/img/logo.png"> 
+    <link rel="stylesheet" href="../static/css/styleIndex.css">
+</head>
+<body>
+    <div class="encabezado">
+        <div class="descripcion">
+            <h1 class="titulo">Artículos</h1>
+            <h2 class="instrucciones">Selecciona los artículos del cliente </h2>
+        </div>
+        <div class="boton">
+            <button class="botonCarritos" id="botonCarritos"><i class="fa-solid fa-table-list"></i>  Ver lista de Artículos</button>
+        </div>
+    </div>
+    
+    <div class="articulos-block">
+        {% for articulo in articulos %}
+        <div class="articulo">
+            <!-- Mostrar la imagen -->
+            <div class="imagenArticulo">
+                {% if articulo[5] %}
+                <img src="data:image/jpeg;base64,{{ articulo[5] }}" alt="Imagen del artículo" />
+                {% else %}
+                    <p>No hay imagen disponible</p>
+                {% endif %}
+            </div>
+            
+            <div class="descripcionArticulo">
+                <h2>{{ articulo[2] }}</h2> <!-- Nombre del artículo -->
+                <p>S/ {{ articulo[3] }}</p> <!-- Precio del artículo -->
+            </div>
+
+            <div>
+                <form action="" class="formulario">
+                    <label for="cantidad">Cantidad</label>
+                    <input type="text" name="cantidad" id="cantidad{{ articulo[0] }}" value="1" class="input-cantidad">
+                    <button id= "botonAñadir{{ articulo[0] }}" class="botonAñadir" 
+                    data-id="{{ articulo[0] }}"
+                    data-codigo="{{ articulo[1] }}"
+                    data-nombre="{{ articulo[2] }}"
+                    data-precio="{{ articulo[3] }}"
+                    ><i class="fa-solid fa-circle-plus"></i> Añadir</button>
+                </form>
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+<script src="../static/js/agregarArticulo.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;800&family=Poppins:wght@400;500;600;700&display=swap');
+        body, html {
+            background-color: #DBEBED;
+            height: 100%;
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        body {
+            flex-direction: column;
+        }
+        .opcion {
+            display: block;
+            width: 700px;
+            text-align: center;
+            margin-bottom: 40px; /* Espacio entre las etiquetas <a> */
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-decoration: none;
+            font-size: 45px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px #047076;
+            transition: all 0.3s ease 0s;
+            color: black;
+        }
+        .opcion:hover{
+            transform: scale(1.08);
+        }
+        a{
+            text-decoration: none;
+            transition: all 0.3s ease 0s;
+        }
+        a:hover{
+            color: #047076;
+        }
+    </style>
+</head>
+<body>
+    <a class="opcion" href="{{ url_for('articulos') }}">
+        Procesamiento de ordenes
+    </a>
+
+
+    <a class="opcion" href="{{ url_for('cuentasCobrar') }}">
+        Cuentas por cobrar
+    </a>
+</body>
+</html>

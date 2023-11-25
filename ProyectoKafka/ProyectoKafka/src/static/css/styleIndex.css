@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;800&family=Poppins:wght@400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 17px;
+}
+
+body{
+    background-color: #DBEBED;
+    padding: 25px;
+}
+
+.encabezado {
+    display: flex;
+    justify-content: space-between; /* Coloca los elementos al inicio y al final del contenedor */
+    align-items: center; /* Alinea verticalmente los elementos */
+    
+}
+
+.encabezado .botonCarritos{
+    font-weight: 700;
+    display: block;
+    background: #047076;
+    color: #ffffff;
+    padding: 9px 25px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.3s ease 0s;
+}
+
+.encabezado .botonCarritos:hover{
+    transform: scale(1.08);
+}
+
+.titulo {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.instrucciones {
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.articulos-block {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+
+    align-items: center;
+    justify-content: center; 
+}
+
+.articulos-block .articulo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center; 
+    padding: 10px; 
+    border-radius: 10px; 
+    background-color: #ffffff;
+}
+
+.articulos-block .articulo .imagenArticulo {
+    justify-content: center;
+}
+
+.articulos-block .articulo .imagenArticulo img{
+    width: 50%;
+    height: auto;
+}
+
+.articulos-block .articulo .descripcionArticulo h2{
+    margin-bottom: 8px;
+}
+
+.articulos-block .articulo .descripcionArticulo p{
+    margin-bottom: 8px;
+    font-style: italic;
+}
+
+.formulario {
+    display: flex;
+    align-items: center;
+}
+
+.input-cantidad {
+    align-items: center;
+    text-align: center;
+    width: 60px; 
+    margin-left: 10px;
+    margin-right: 10px; 
+}
+
+.articulos-block .articulo .botonAñadir{
+    font-weight: 700;
+    display: block;
+    background: #047076;
+    color: #ffffff;
+    padding: 9px 25px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.3s ease 0s;
+}
+
+.articulos-block .articulo .botonAñadir:hover{
+    transform: scale(1.08);
+}
+

@@ -42,6 +42,14 @@ public class ArticuloEntity {
     private int cantidadDisponible;
     
     
+    public int getCantidadDisponible() {
+        return cantidadDisponible;
+    }
+
+    public void setCantidadDisponible(int cantidadDisponible) {
+        this.cantidadDisponible = cantidadDisponible;
+    }
+    
 }
 
 

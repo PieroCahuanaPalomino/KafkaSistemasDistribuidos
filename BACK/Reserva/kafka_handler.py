@@ -21,7 +21,7 @@ class Articulo(Base):
     precio_unitario = Column(Float)
     cantidad_disponible = Column(Integer)
 
-engine = create_engine('mysql+mysqlconnector://root:7781@localhost:3306/proyectokafka', echo=True)
+engine = create_engine('mysql+mysqlconnector://root@localhost:3306/proyectokafka', echo=True)
 Base.metadata.create_all(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()

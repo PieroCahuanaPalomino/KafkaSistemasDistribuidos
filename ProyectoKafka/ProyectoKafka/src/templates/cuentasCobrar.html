@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuentas por cobrar</title>
+    <link rel="stylesheet" href="../static/css/styleCuentas.css">
+</head>
+<body>
+    <h1 class="titulo">Cuentas por cobrar</h1>
+    <div class="contenedorInicio">
+        <div class="seleccionaCliente">
+            <label for="clientes">Cliente</label>
+            <select name="clientes" id="clientes">
+            <option disabled="">Selecciona un cliente</option>
+            {% for cliente in clientes %}
+                <option value="{{cliente[1]}}">{{cliente[0]}}</option>
+            {% endfor %}
+        </select>
+        </div>
+        <div class="botonFiltro">
+            <button class="btn-filtrar">Filtrar</button>
+        </div>
+    </div>
+    
+    <div class="tablaContenedor">
+        <table class="tablaFacturas">
+            <thead>
+                <tr>
+                    <th>ID cuenta</th>
+                    <th>ID factura</th>
+                    <th>Estado</th>
+                    <th>Codigo Cliente</th>
+                    <th>Nombre Cliente</th>
+                    <th>DNI/RUC</th>
+                    <th>Total IGV</th>
+                    <th>Total cobrar</th>
+                </tr>
+            </thead>
+            <div class="bodyTable">
+                <tbody id="cuentasBody">
+                    {% for cuenta in cuentas %}
+                    <tr>
+                        <td>{{cuenta[0]}}</td>
+                        <td>{{cuenta[1]}}</td>
+                        <td>{% if cuenta[2]== 0 %}
+                            Pendiente
+                            {% elif cuenta[2]== 1 %}
+                            Cancelado
+                            {% else %}
+                        
+                            {% endif %}</td>
+                        <td>{{cuenta[3]}}</td>
+                        <td>{{cuenta[4]}}</td>
+                        <td>{{cuenta[5]}}</td>
+                        <td>{{cuenta[6]}}</td>
+                        <td>{{cuenta[7]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </div>
+            
+        </table>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".btn-filtrar").on('click', function(){
+                var selectedValue = $("#clientes").val();
+
+                $.ajax({
+                    url: '/filtrarDatos', 
+                    type: 'POST',
+                    data: { clienteSeleccionado: selectedValue },
+                    success: function(response) {
+                        $('#cuentasBody').empty();
+                        console.log(response)
+                        response.forEach(function(cuenta) {
+                            var newRow = $('<tr>'); 
+
+                            cuenta.forEach(function(valor) {
+                                var newCell = $('<td>').text(valor);
+                                newRow.append(newCell);
+                            });
+
+                            $('#cuentasBody').append(newRow);
+                        });
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;800&family=Poppins:wght@400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 17px;
+}
+
+body{
+    background-color: #DBEBED;
+    padding: 25px;
+}
+
+.titulo {
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.datosCliente {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.input-wrapper {
+    text-align: center; 
+}
+
+.input-wrapper > input{
+    margin-right: 8px;
+    border: none; 
+    border-radius: 5px; 
+    padding: 3px; 
+}
+
+.input-wrapper > input:focus {
+    border-color: #047076;  
+   
+}
+
+.input-wrapper #nombre_razon_social{
+    width: 300px;
+}
+
+.tablaContenedor{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.tablaArticulos {
+    width: 100%;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.tablaArticulos thead{
+    background-color: #047076;
+    color: #fff;
+}
+
+.tablaArticulos tbody{
+    background-color: #ffffff;
+    
+}
+
+.tablaArticulos .bodyTable {
+    font-weight: 400; 
+}
+
+.tablaArticulos th,
+.tablaArticulos td {
+    border: 3px solid #DBEBED; 
+    padding: 8px; 
+    text-align: center; 
+}
+
+.tablaContenedor .totalCompra{
+    text-align: end;
+    margin-top: 10px;
+    margin-right: 2px;
+} 
+
+.btn-registrar{
+    font-weight: 700;
+    display: block;
+    background: #047076;
+    color: #ffffff;
+    padding: 9px 25px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 0 auto;
+    transition: all 0.3s ease 0s;
+}
+
+.btn-registrar:hover{
+    transform: scale(1.08);
+}
+

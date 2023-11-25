@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;800&family=Poppins:wght@400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 17px;
+}
+
+body{
+    background-color: #DBEBED;
+    padding: 25px;
+}
+
+.titulo {
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contenedorInicio{
+    padding-left: 15px;
+    display: flex;
+    flex-direction: row;
+}
+
+.botonFiltro {
+    margin-left: 25px;
+}
+
+.seleccionaCliente {
+    display: flex;
+    flex-direction: column; 
+}
+
+
+#clientes {
+    width: 250px; /* Ancho del select */
+    max-width: 100%; /* Máximo ancho de las opciones */
+}
+
+/* Limita el ancho de las opciones */
+#clientes option {
+    max-width: 250px; /* Ancho máximo de las opciones */
+    white-space: nowrap; /* Evita que el texto se rompa en líneas */
+    overflow: hidden; /* Oculta el texto que sobrepasa el ancho */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es demasiado largo */
+}
+.tablaContenedor{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 13px;
+    margin-right: 13px;
+}
+
+.tablaFacturas {
+    width: 100%;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.tablaFacturas thead{
+    background-color: #047076;
+    color: #fff;
+}
+
+.tablaFacturas tbody{
+    background-color: #ffffff;
+    
+}
+
+.tablaFacturas th,
+.tablaFacturas td {
+    border: 3px solid #DBEBED; 
+    padding: 8px; 
+    text-align: center; 
+}
+
+
+.btn-filtrar{
+    font-weight: 700;
+    display: block;
+    background: #047076;
+    color: #ffffff;
+    padding: 9px 25px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 0 auto;
+    transition: all 0.3s ease 0s;
+}
+
+.btn-filtrar:hover{
+    transform: scale(1.08);
+}
+

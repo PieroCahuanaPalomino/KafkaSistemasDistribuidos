@@ -3,6 +3,27 @@
 dataDir=c:/kafka/zookeeper-data
 log.dirs=c:/kafka/kafka-logs
 
+pip install mysql-connector-python
+pip install confluent-kafka
+pip install SQLAlchemy mysql-connector-python
+
+docker network create mynetwork
+
+
+docker run -d --name mysql-container \
+  -e MYSQL_ALLOW_EMPTY_PASSWORD=yes \
+  -e MYSQL_DATABASE=proyectokafka \
+  -p 3306:3306 \
+  --network mynetwork \
+  mysql:latest
+
 
 .\bin\windows\kafka-server-start.bat .\config\server.properties
 
+
+D:\CICLO 8\ProyectoKafka_ProcesarOrdenes\ProyectoKafka>pip install -r requirements.txt
+D:\CICLO 8\ProyectoKafka_ProcesarOrdenes\ProyectoKafka>python -m venv env
+D:\CICLO 8\ProyectoKafka_ProcesarOrdenes\ProyectoKafka>.\env\Scripts\activate
+(env) D:\CICLO 8\ProyectoKafka_ProcesarOrdenes\ProyectoKafka>pip install Flask
+(env) D:\CICLO 8\ProyectoKafka_ProcesarOrdenes\ProyectoKafka>pip install Flask-MySQLdb
+(env) D:\CICLO 8\ProyectoKafka_ProcesarOrdenes\ProyectoKafka>python .\src\app.py

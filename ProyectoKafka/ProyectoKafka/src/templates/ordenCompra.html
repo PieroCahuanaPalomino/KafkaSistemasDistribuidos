@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orden de Compra</title>
+    <link rel="icon" type="image/png" href="../static/img/logo.png"> 
+    <link rel="stylesheet" href="../static/css/styleOrden.css">
+
+</head>
+<body>
+    <h1 class="titulo">Orden de Compra</h1>
+    <form action="">
+        <div class="datosCliente">
+            <div class="input-wrapper">
+                <label for="codigoCompra">Código de Compra:</label>
+                <input type="text" name="codigoCompra" id="codigoCompra" value="{{order_code}}" readonly>
+            </div>
+            <div class="input-wrapper">
+                <label for="nombre_razon_social">Nombre/Razón Social:</label>
+                <input type="text" name="nombre_razon_social" id="nombre_razon_social">
+            </div>
+            <div class="input-wrapper">
+                <label for="dni_ruc">DNI/RUC:</label>
+                <input type="text" name="dni_ruc" id="dni_ruc">
+            </div>
+        </div>
+        
+        
+        <div class="tablaContenedor">
+            <table class="tablaArticulos">
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Código</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Importe</th>
+                    </tr>
+                </thead>
+                <div class="bodyTable">
+                    <tbody>
+                    
+                        {% set cont = 1 %}
+                        {% for articulo in lista_articulos %}
+                        {% set cont = loop.index %}
+                        <tr>
+                            <td>{{ cont }}</td>
+                            <td>{{ articulo.codigoArticulo }}</td>
+                            <td>{{ articulo.nombreArticulo }}</td>
+                            <td>{{ articulo.cantidadPedido }}</td>
+                            <td>S/ {{ articulo.precioUnitario }}</td>
+                            <td>S/ {{ articulo.importe }}</td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                </div>
+                
+            </table>
+            <h1 class="totalCompra">Importe Total: S/ {{importeTotal}}</h1>
+        </div>
+
+        
+        <button class="btn-registrar" id="btn-registrar" data-articulos='{{ lista_articulos | tojson | safe }}'>Registrar Orden</button>
+    </form>
+
+<script src="../static/js/registrarOrden.js"></script>
+
+</body>
+</html>

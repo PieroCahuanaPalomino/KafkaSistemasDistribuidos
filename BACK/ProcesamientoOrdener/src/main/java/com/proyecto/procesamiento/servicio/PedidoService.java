@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.procesamiento.dto.ErrorDto;
 import com.proyecto.procesamiento.dto.PedidoDto;
+import com.proyecto.procesamiento.dto.SuccesDto;
 import com.proyecto.procesamiento.kafka.events.EventType;
 import com.proyecto.procesamiento.kafka.events.EventTypeError;
+import com.proyecto.procesamiento.kafka.events.EventTypeSucces;
 
 @Service
 public class PedidoService {
@@ -50,14 +52,18 @@ public class PedidoService {
 				consumerService.mensaje=null;
 				return (T) dto;
 			}else {
-				return (T) "ERROR";				
+				dto.setType(EventTypeError.ERROR);
+				return (T) dto;				
 			}
 			//verificar sino poner dbajo de Received
 			//aqui trabajar cuando sea bueno
 		}else if(consumerService.mensajeExito !=null && mensajeAsignacion.equals("EXITO")){
-				return (T) customer;				
+				SuccesDto succesDto=new SuccesDto();
+				succesDto.setType(EventTypeSucces.EXITO);
+				return (T) succesDto;				
 		}else {
-			return (T) "ERROR";
+			dto.setType(EventTypeError.ERROR);
+			return (T) dto;
 		}
 		
 

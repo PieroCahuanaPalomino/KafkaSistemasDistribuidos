@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\CICLO 8\ProyectoKafka\ProyectoKafka\env"
+VIRTUAL_ENV="D:\CICLO 8\SISTEMAS DISTRIBUIDOS\ProyectoKafka\ProyectoKafka\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

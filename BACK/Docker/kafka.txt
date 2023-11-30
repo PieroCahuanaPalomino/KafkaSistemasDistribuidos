@@ -19,7 +19,7 @@ docker run -d --name mysql-container \
 
 
 .\bin\windows\kafka-server-start.bat .\config\server.properties
-
+http://localhost/phpmyadmin/
 
 pip install flask-cors
 

@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         setTimeout(function() {
             // Mostrar el alert después de 10 segundos
-            alert('¡Han pasado 5 segundos!');
+            alert('¡Se registro!');
             respuesta = "Exitoso"
             if(respuesta == "Exitoso"){
                 alert('Se registro la orden de compra')

@@ -86,20 +86,20 @@ def registrarCompra():
             print(response.text)
 
             # Adaptación de la respuesta según tus necesidades
-            respuesta_adaptada = {"type": "EXITO"}
+            return jsonify(response.json())
         else:
             # La solicitud falló
             print(f'Error al realizar la solicitud: {response.status_code} - {response.reason}')
             
             # Adaptación de la respuesta en caso de error
-            respuesta_adaptada = {"type": "ERROR"}
+            return jsonify(response.json())
     except Exception as e:
         print(f'Error en la solicitud: {str(e)}')
-        respuesta_adaptada = {"type": "ERROR"}
+        return jsonify({"type": "ERROR", "error_message": str(e)})
     
  
-    print(orden)
-    return orden
+    #print(orden)
+    #return orden
 
 @app.route('/cuentasCobrar')
 def cuentasCobrar():

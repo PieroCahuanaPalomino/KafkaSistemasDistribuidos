@@ -41,7 +41,7 @@ public class PedidoService {
 		}while(consumerService.mensajeExito==null);
 		
 		if(consumerService.mensaje != null) {
-			
+			//ERRORES
 			if(mensajeAsignacion.equals("INEXISTENTE")) {
 				dto.setType(EventTypeError.INEXISTENTE);	
 				consumerService.mensaje=null;
@@ -53,16 +53,23 @@ public class PedidoService {
 				return (T) dto;
 			}else {
 				dto.setType(EventTypeError.ERROR);
+				//AQUI MODIFIQUE
+				consumerService.mensaje=null;
 				return (T) dto;				
 			}
 			//verificar sino poner dbajo de Received
 			//aqui trabajar cuando sea bueno
+			
 		}else if(consumerService.mensajeExito !=null && mensajeAsignacion.equals("EXITO")){
 				SuccesDto succesDto=new SuccesDto();
 				succesDto.setType(EventTypeSucces.EXITO);
+				//AQUI MODIFIQUE
+				consumerService.mensajeExito=null;
 				return (T) succesDto;				
 		}else {
 			dto.setType(EventTypeError.ERROR);
+			//AQUI MODIFIQUE
+			consumerService.mensaje=null;
 			return (T) dto;
 		}
 		
